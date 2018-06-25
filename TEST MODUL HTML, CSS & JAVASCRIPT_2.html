@@ -1,0 +1,140 @@
+<html>
+	<head>
+		<title>Test Modul html2</title>
+		<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<style type="text/css">
+		body {
+				background:#e0e0d1;
+			}
+			.header{
+				background:#e0e0d1;
+				text-align:center;
+			}
+			.navbar-left{
+				background-color:#339966;
+				valign:middle;
+				width:550px;
+				}
+			a {color: #ffffff;}
+			
+			.article {
+				clear:both;
+				background-color:#ffffff;
+				padding:10px;
+				border-bottom:40px solid #e0e0d1;
+			}
+		</style>
+	</head>
+	<body>
+	<h3><center>HITUNG SEWA TRAVEL</h3></center>
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+				<div class="col-md-5">
+					<nav class="navbar navbar-justified navbar">
+					<ul class="nav navbar-nav navbar-left">
+						<li><a href="">HOME</a></li>
+						<li><a href="">HITUNG</a></li>
+						</ul>
+						</nav>
+						
+						
+		<div class="article">
+		<table>
+		<tr>
+			<td><label for="nama">Nama</label></td>
+			<td><b>: </b><input type="text" name="nama" id="nama">
+		</tr>
+
+		<tr>
+			<td><label for="jurusan">Jurusan</label></td>
+			<td><b>: </b><select name="jurusan" id="jurusan">
+				<option  value="BSD-Bandung">BSD - BANDUNG</option>
+				<option  value="Bandung-BSD">BANDUNG - BSD</option>
+				<option  value="BSD-bandara">BSD - BANDARA</option>
+				<option  value="bandara-BSD">BANDARA - BSD</option>
+			</select></td>
+		</tr>
+
+		<td><label for="status">Jam Keberangkatan</label></td>
+		<td><b>: </b><input type="radio" name="status" id="rad1" value="10.00">10.00
+		<input type="radio" name="status" id="rad2" value="22.00">22.00</td>
+		</tr>
+
+		<td><label for="jumlah_pesanan">Jumlah Pesanan</label></td>
+		<td><b>: </b><input type="number" name="jumlah_pesanan" id="jumlah_pesanan"></td>
+		</tr>
+		</table>
+		
+		<br>
+		<input onclick="hitung();" type="submit" name="submit_button" value="hitung" >
+		<input type="reset" name="reset_button" value="reset">
+		<br>
+		<p>Hasil Perhitungan : </p>
+		<textarea name="apa" cols="50" rows="10" id="hasil"></textarea>
+		
+		
+		<script type="text/javascript">
+			function hitung(){
+				var hasil=null;
+			
+					//Ambil nama 
+					var nama=document.getElementById("nama").value;
+					//Ambil jumlah pesanan
+					var jumlah_pesanan=document.getElementById("jumlah_pesanan").value;
+					//Deklarasi variabel untuk radio (member)
+					var radio1=document.getElementById("rad1");
+					var radio2=document.getElementById("rad2");
+					//Ambil Jurusan
+					var jurusan=document.getElementById("jurusan").value;
+					//Variabel untuk menghitung-hitung
+					var status,harga, total,diskon,bayar;
+					//validasi agar tidak ada data yang kosong
+					if (nama!="" && jumlah_pesanan!="" && jurusan!="" && (radio1.checked||radio2.checked)) {
+						//kondisi untuk cek jurusan dan menetapkan harga
+						if(jurusan=="BSD-Bandung") {
+							harga=100000;
+						}
+						else if(jurusan=="Bandung-BSD") {
+							harga=120000;
+						}
+						else if(jurusan=="BSD-bandara") {
+							harga=80000;
+						}
+						else if(jurusan=="bandara-BSD") {
+							harga=90000;
+						}
+						//menghitung total dari harga * jumlah kursi
+						total=harga*jumlah_pesanan;
+						//mengecek status member dan menghitung diskon
+						if(radio1.checked) 
+						{
+							status="10.00";
+							diskon=0;
+						}
+						else if(radio2.checked)
+						{
+							status="22.00";
+							diskon=total*0.1;
+						}
+						
+						//Menghitung total bayar yaitu total-diskon
+						bayar=total-diskon;
+						//mencetak data di textarea
+						document.getElementById("hasil").innerHTML="Nama pemesan : "+nama+"\n"
+																	+"Jurusan : "+jurusan+"\n"
+																	+"Jumlah pesanan : "+jumlah_pesanan+"\n"
+																	+"Keberangkatan : "+status+" Maka Diskon "+diskon+"\n"
+																	+"Total yang harus dibayar : "+bayar;
+						
+						}
+						else
+						{
+							//alert jika ada yang belum diisi
+							alert("Lengkapi terlebih dahulu");
+						}
+					
+			}
+		</script>
+	</body>
+</html>
